@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "get_next_line.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct n_img
 {
@@ -24,6 +25,8 @@ typedef struct n_cord
 	int		x;
 	int		y;
     int     z;
+    int     i;
+    int     j;
     int     iso_x;
     int     iso_y;
 }   t_cord;
@@ -94,5 +97,8 @@ int     count_width(char **args);
 void map_generating(t_mlx_vars *vars);
 void bresnham(t_mlx_vars *vars, t_coordinates *xy) ;
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
+void	rotate_z(int *x, int *y, double z_angle);
+void	rotate_y(int *x, int *z, double y_angle);
+void    rotate_x(int *y, int *z, double x_angle);
 
 #endif

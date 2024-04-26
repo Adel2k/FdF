@@ -63,10 +63,8 @@ void  add_to_map(t_map **map, char *str)
 }
 void    init_vars(t_mlx_vars **vars, t_map *map)
 {
-    printf("hello\n");
     (*vars)->height_size=map_len(map);
     (*vars)->width_size = line_count(map -> line);
-    printf("len: %d\n", (*vars)->height_size);
     (*vars)->coordinates = malloc(sizeof(int *) * ((*vars)->height_size));
     malloc_check((*vars)->coordinates);
     int i = 0;
@@ -76,28 +74,16 @@ void    init_vars(t_mlx_vars **vars, t_map *map)
       map = map -> next;
       i++;
     }
-    i = 0;
-    printf("Here we are\n");
-    while (i < (*vars)->height_size)
-    {
-      int j = 0;
-      while (j < (*vars)->width_size)
-        printf("%d   ", (*vars)->coordinates[i][j++]);
-      printf("\n");
-      i++;
-    }
-    // vars->coordinates[vars->height_size - 1] = init_row(vars); 
-    // vars->coordinates[vars->height_size] = NULL; 
-    // vars->mlx = NULL;
-    // vars->win = NULL;
-    // vars->x = 1500;
-    // vars->y = 1000;
-    // vars->x_start = 640;
-    // vars->y_start = -300;
-    // vars->x_end = vars->x - vars->x_start;
-    // vars->y_end = vars->y - vars->y_start;
-    // vars->dx = vars->x_end - vars->x_start;
-    // vars->dy = vars->y_end - vars->y_start;
+    (*vars)->mlx = NULL;
+    (*vars)->win = NULL;
+    (*vars)->x = 1500;
+    (*vars)->y = 1000;
+    (*vars)->x_start = (*vars)->x / 2;
+    (*vars)->y_start = -500;
+    (*vars)->x_end = (*vars)->x - (*vars)->x_start;
+    (*vars)->y_end = (*vars)->y - (*vars)->y_start;
+    (*vars)->dx = (*vars)->x_end - (*vars)->x_start;
+    (*vars)->dy = (*vars)->y_end - (*vars)->y_start;
 }
 
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2)
