@@ -8,7 +8,6 @@
 # include <X11/keysym.h>
 # include <stdlib.h>
 # include <math.h>
-# include "minilibx-linux/mlx.h"
 # include "get_next_line.h"
 
 typedef struct n_img
@@ -76,14 +75,14 @@ typedef struct	s_mlx_vars {
 
 typedef struct s_map
 {
-  char      *line;
+  char **line;
   struct s_map  *next;
 }  t_map;
 
 int     handler(int keysym, t_mlx_vars *vars);
 int     mouse_close(t_mlx_vars *vars);
 void    init_vars(t_mlx_vars *vars);
-void    parser(int fd, t_mlx_vars *vars);
+t_map    *parser(int fd, t_mlx_vars *vars);
 size_t	ft_strlen(const char *str);
 void	malloc_check(void *str);
 int     is_fdf(char *input, char *str);

@@ -103,5 +103,5 @@ void bresnham(t_mlx_vars *vars, t_coordinates *xy)
 		i++;
 	}
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img_ptr, 0, 0);
+	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img_ptr, 0, 0);
 }

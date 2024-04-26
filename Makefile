@@ -16,7 +16,7 @@ MLXFLAGS = -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 all: $(NAME)
 
 $(NAME):	$(OBJS)
-	$(CC) $(CFLAGS)  -o $(NAME) $(OBJS) $(MLXFLAGS)
+	$(CC) $(CFLAGS)  -o $(NAME) $(OBJS)
 
 clean:	
 	$(RM) $(OBJS) 

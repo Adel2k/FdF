@@ -27,26 +27,26 @@ int  map_len(t_map *map)
   }
   return (len);
 }
-int  **get_map(t_map *map, t_mlx_vars *vars)
-{
-  int    i;
-  int  **map1;
-  t_map  *next;
+// int  **get_map(t_map *map, t_mlx_vars *vars)
+// {
+//   int    i;
+//   int  **map1;
+//   t_map  *next;
 
-  map1 = malloc(sizeof(t_map) * (map_len(map) + 1));
-  if (!map1)
-    malloc_check(map1);
-  i = 0;
-  while (map)
-  {
-    map1[i] = init_row(map->line, vars->width_size);
-    next = map -> next;
-    map = next;
-    i++;
-  }
-  map1[i] = NULL;
-  return (map1);
-}
+//   map1 = malloc(sizeof(t_map) * (map_len(map) + 1));
+//   if (!map1)
+//     malloc_check(map1);
+//   i = 0;
+//   while (map)
+//   {
+//     map1[i] = init_row(map->line, vars->width_size);
+//     next = map -> next;
+//     map = next;
+//     i++;
+//   }
+//   map1[i] = NULL;
+//   return (map1);
+// }
 int  line_count(char **map)
 {
   int  i;
@@ -65,7 +65,7 @@ void  add_to_map(t_map **map, char *str)
   new = malloc(sizeof(t_map));
   if (!new)
     return ;
-  new -> line = str;
+  new -> line = ft_split(str);
   new -> next = NULL;
   temp = *map;
   if (!*map)
@@ -81,7 +81,7 @@ void  add_to_map(t_map **map, char *str)
 }
 void    init_vars(t_mlx_vars *vars)
 {
-    printf("hello\n");
+    //printf("hello\n");
     // vars->coordinates = malloc(sizeof(int *) * (vars->height_size +1));
     // malloc_check(vars->coordinates);
     // vars->coordinates[vars->height_size - 1] = init_row(vars); 
@@ -175,7 +175,7 @@ void    arguments_check(int ac, char **av)
 
 }
 
-void    parser(int fd, t_mlx_vars *vars)
+t_map *parser(int fd, t_mlx_vars *vars)
 {
     char    *buffer;
     t_map *map;
@@ -187,17 +187,8 @@ void    parser(int fd, t_mlx_vars *vars)
         buffer = get_next_line(fd);
         if(buffer == 0)
             break ;
-        add_to_map(&map, buffer);
-        // vars->row = ft_split(buffer);
-        // if(!vars->row)
-        //     error_handle("Empty map!\n");
-        get_map(map, vars);
-        if (vars->width_size == 0)
-            vars->width_size = count_width(vars->row);
-        if (count_width(vars->row) != vars->width_size)
-            error_handle("Invalid size of map!\n");
-        vars->height_size += 1;
-        init_vars(vars);        
+        add_to_map(&map, buffer);    
         free(buffer);
     }
+    return (map);
 }
