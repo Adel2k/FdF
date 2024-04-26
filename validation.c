@@ -1,16 +1,27 @@
 #include "fdf.h"
 
-int *init_row(char *line, int x)
+int  line_count(char **map)
 {
-    int	*res;
+  int  i;
+
+  i = 0;
+  while (map[i])
+    i++;
+  return (i);
+}
+
+int *init_row(char **line)
+{
+  int	*res;
 	int	i;
+  int len = line_count(line);
 
 	i = 0;
-	res = malloc(sizeof(int) * x);
+	res = malloc(sizeof(int) * len);
 	malloc_check(res);
-	while (line)
+	while (line[i])
 	{
-		res[i] = atoi(line);
+		res[i] = atoi(line[i]);
 		i++;
 	}
 	return (res);
@@ -27,35 +38,6 @@ int  map_len(t_map *map)
   }
   return (len);
 }
-int  **get_map(t_map *map, t_mlx_vars *vars)
-{
-  int    i;
-  int  **map1;
-  t_map  *next;
-
-  map1 = malloc(sizeof(t_map) * (map_len(map) + 1));
-  if (!map1)
-    malloc_check(map1);
-  i = 0;
-  while (map)
-  {
-    map1[i] = init_row(map->line, vars->width_size);
-    next = map -> next;
-    map = next;
-    i++;
-  }
-  map1[i] = NULL;
-  return (map1);
-}
-int  line_count(char **map)
-{
-  int  i;
-
-  i = 0;
-  while (map[i])
-    i++;
-  return (i);
-}
 
 void  add_to_map(t_map **map, char *str)
 {
@@ -65,7 +47,7 @@ void  add_to_map(t_map **map, char *str)
   new = malloc(sizeof(t_map));
   if (!new)
     return ;
-  new -> line = str;
+  new -> line = ft_split(str);
   new -> next = NULL;
   temp = *map;
   if (!*map)
@@ -79,23 +61,29 @@ void  add_to_map(t_map **map, char *str)
     temp -> next = new;
   }
 }
-void    init_vars(t_mlx_vars *vars)
+void    init_vars(t_mlx_vars **vars, t_map *map)
 {
-    printf("hello\n");
-    // vars->coordinates = malloc(sizeof(int *) * (vars->height_size +1));
-    // malloc_check(vars->coordinates);
-    // vars->coordinates[vars->height_size - 1] = init_row(vars); 
-    // vars->coordinates[vars->height_size] = NULL; 
-    vars->mlx = NULL;
-    vars->win = NULL;
-    vars->x = 1500;
-    vars->y = 1000;
-    vars->x_start = 640;
-    vars->y_start = -300;
-    vars->x_end = vars->x - vars->x_start;
-    vars->y_end = vars->y - vars->y_start;
-    vars->dx = vars->x_end - vars->x_start;
-    vars->dy = vars->y_end - vars->y_start;
+    (*vars)->height_size=map_len(map);
+    (*vars)->width_size = line_count(map -> line);
+    (*vars)->coordinates = malloc(sizeof(int *) * ((*vars)->height_size));
+    malloc_check((*vars)->coordinates);
+    int i = 0;
+    while (i < (*vars)->height_size)
+    {
+      (*vars)->coordinates[i] = init_row(map -> line);
+      map = map -> next;
+      i++;
+    }
+    (*vars)->mlx = NULL;
+    (*vars)->win = NULL;
+    (*vars)->x = 1500;
+    (*vars)->y = 1000;
+    (*vars)->x_start = (*vars)->x / 2;
+    (*vars)->y_start = -500;
+    (*vars)->x_end = (*vars)->x - (*vars)->x_start;
+    (*vars)->y_end = (*vars)->y - (*vars)->y_start;
+    (*vars)->dx = (*vars)->x_end - (*vars)->x_start;
+    (*vars)->dy = (*vars)->y_end - (*vars)->y_start;
 }
 
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2)
@@ -175,7 +163,7 @@ void    arguments_check(int ac, char **av)
 
 }
 
-void    parser(int fd, t_mlx_vars *vars)
+t_map *parser(int fd, t_mlx_vars *vars)
 {
     char    *buffer;
     t_map *map;
@@ -187,17 +175,8 @@ void    parser(int fd, t_mlx_vars *vars)
         buffer = get_next_line(fd);
         if(buffer == 0)
             break ;
-        add_to_map(&map, buffer);
-        // vars->row = ft_split(buffer);
-        // if(!vars->row)
-        //     error_handle("Empty map!\n");
-        get_map(map, vars);
-        if (vars->width_size == 0)
-            vars->width_size = count_width(vars->row);
-        if (count_width(vars->row) != vars->width_size)
-            error_handle("Invalid size of map!\n");
-        vars->height_size += 1;
-        init_vars(vars);        
+        add_to_map(&map, buffer);    
         free(buffer);
     }
+    return (map);
 }

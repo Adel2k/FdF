@@ -15,65 +15,52 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 
 void isometric_projection(t_points *p) 
 {
-    p->point1.iso_x = (p->point1.x - p->point1.y) * cos(M_PI / 4);
-    p->point1.iso_y = (p->point1.x + p->point1.y) * sin(M_PI / 4) + 0;
-	p->point2.iso_x = (p->point2.x - p->point2.y) * cos(M_PI / 4);
-    p->point2.iso_y = (p->point2.x + p->point2.y) * sin(M_PI / 4) + 0;
+    p->point1.iso_x = (p->point1.x - p->point1.y) * cos(45);
+    p->point1.iso_y = (p->point1.x + p->point1.y) * sin(45) ;
+	p->point2.iso_x = (p->point2.x - p->point2.y) * cos(45);
+    p->point2.iso_y = (p->point2.x + p->point2.y) * sin(45);
 }
-void init_points(t_points *p, int x, int y, t_mlx_vars *vars)
+void first_point(t_points *p, int x, int y, t_mlx_vars *vars)
 {
-	p->point1.x = vars->x_start + (x * 200);
-	p->point1.y = vars->y_start + (y * 200);
-	if (x + 1 < vars->width_size )
-	{
-		p->point2.x = vars->x_start + ((x + 1 )* 200);
-		p->point2.y = vars->y_start + (y * 200);
-	}
-	else 
-	{
-		p->point2.x = vars->x_start + (x * 200);
-		p->point2.y = vars->y_start + (y + 1 * 200);
-	}
-	  for(int i = 0; i < vars->width_size; i++)
-    {
-        printf("%d\n", vars->coordinates[vars->height_size - 1][i]);
-        printf("x=%d, y=%d\n", (vars->height_size - 1), i);
-
-    }
-	// printf("%d ,%d\n", x, y);
-	// int z = vars->coordinates[x][y];
-	// int z2 = vars->coordinates[x][y];
-    // printf("hello\n%d%d", z, z2);
+	p->point1.x = vars->x_start + (x * 100);
+	p->point1.y = vars->y_start + (y * 100);
 }
+
 void map_generating(t_mlx_vars *vars)
 {
 	t_points p;
 	t_cord xy;
 	t_coordinates temp;
 
-	xy.x = 0;
-	while (xy.x < vars->width_size)
+	xy.y = 0;
+	while (xy.y < vars->height_size )
 	{
-		xy.y = 0;
-		while (xy.y < vars->height_size)
+		xy.x = 0;
+		while (xy.x + 1 <= vars->width_size)
 		{
-			if (xy.y + 1 < vars->height_size)
+			if (xy.x  + 1 < vars->width_size)
 			{
-				init_points(&p, xy.x, xy.y, vars);
+				first_point(&p, xy.x, xy.y, vars);
+				p.point2.x = vars->x_start + (xy.x+1) * 100;
+				p.point2.y = vars->y_start + xy.y * 100;
+				p.point1.z = vars->coordinates[xy.y][xy.x];
  		 		isometric_projection(&p);
 				temp = setting_vars(p.point1.iso_x, p.point1.iso_y, p.point2.iso_x, p.point2.iso_y);
+				
 				bresnham(vars, &temp);
 			 }
-			if (xy.x + 1< vars->width_size )
+			if (xy.y +1< vars->height_size)
 			{
-				init_points(&p, xy.x, xy.y, vars);
- 		 		isometric_projection(&p);
+				first_point(&p, xy.x, xy.y, vars);
+				p.point2.x = vars->x_start + xy.x * 100;
+				p.point2.y = vars->y_start + (xy.y + 1)* 100;
+ 				isometric_projection(&p);
 				temp =setting_vars(p.point1.iso_x, p.point1.iso_y, p.point2.iso_x, p.point2.iso_y);
 				bresnham(vars,&temp);
 			}
-			xy.y++;
+			xy.x++;
 		}
-		xy.x++;
+		xy.y++;
 	}
 
 }

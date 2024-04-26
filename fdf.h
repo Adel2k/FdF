@@ -8,8 +8,8 @@
 # include <X11/keysym.h>
 # include <stdlib.h>
 # include <math.h>
-# include "minilibx-linux/mlx.h"
 # include "get_next_line.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct n_img
 {
@@ -25,6 +25,8 @@ typedef struct n_cord
 	int		x;
 	int		y;
     int     z;
+    int     i;
+    int     j;
     int     iso_x;
     int     iso_y;
 }   t_cord;
@@ -76,14 +78,14 @@ typedef struct	s_mlx_vars {
 
 typedef struct s_map
 {
-  char      *line;
+  char **line;
   struct s_map  *next;
 }  t_map;
 
 int     handler(int keysym, t_mlx_vars *vars);
 int     mouse_close(t_mlx_vars *vars);
-void    init_vars(t_mlx_vars *vars);
-void    parser(int fd, t_mlx_vars *vars);
+void    init_vars(t_mlx_vars **vars, t_map *map);
+t_map    *parser(int fd, t_mlx_vars *vars);
 size_t	ft_strlen(const char *str);
 void	malloc_check(void *str);
 int     is_fdf(char *input, char *str);
@@ -95,5 +97,8 @@ int     count_width(char **args);
 void map_generating(t_mlx_vars *vars);
 void bresnham(t_mlx_vars *vars, t_coordinates *xy) ;
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
+void	rotate_z(int *x, int *y, double z_angle);
+void	rotate_y(int *x, int *z, double y_angle);
+void    rotate_x(int *y, int *z, double x_angle);
 
 #endif
