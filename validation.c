@@ -1,16 +1,27 @@
 #include "fdf.h"
 
-int *init_row(char *line, int x)
+int  line_count(char **map)
 {
-    int	*res;
+  int  i;
+
+  i = 0;
+  while (map[i])
+    i++;
+  return (i);
+}
+
+int *init_row(char **line)
+{
+  int	*res;
 	int	i;
+  int len = line_count(line);
 
 	i = 0;
-	res = malloc(sizeof(int) * x);
+	res = malloc(sizeof(int) * len);
 	malloc_check(res);
-	while (line)
+	while (line[i])
 	{
-		res[i] = atoi(line);
+		res[i] = atoi(line[i]);
 		i++;
 	}
 	return (res);
@@ -26,35 +37,6 @@ int  map_len(t_map *map)
     map = map -> next;
   }
   return (len);
-}
-// int  **get_map(t_map *map, t_mlx_vars *vars)
-// {
-//   int    i;
-//   int  **map1;
-//   t_map  *next;
-
-//   map1 = malloc(sizeof(t_map) * (map_len(map) + 1));
-//   if (!map1)
-//     malloc_check(map1);
-//   i = 0;
-//   while (map)
-//   {
-//     map1[i] = init_row(map->line, vars->width_size);
-//     next = map -> next;
-//     map = next;
-//     i++;
-//   }
-//   map1[i] = NULL;
-//   return (map1);
-// }
-int  line_count(char **map)
-{
-  int  i;
-
-  i = 0;
-  while (map[i])
-    i++;
-  return (i);
 }
 
 void  add_to_map(t_map **map, char *str)
@@ -79,23 +61,43 @@ void  add_to_map(t_map **map, char *str)
     temp -> next = new;
   }
 }
-void    init_vars(t_mlx_vars *vars)
+void    init_vars(t_mlx_vars **vars, t_map *map)
 {
-    //printf("hello\n");
-    // vars->coordinates = malloc(sizeof(int *) * (vars->height_size +1));
-    // malloc_check(vars->coordinates);
+    printf("hello\n");
+    (*vars)->height_size=map_len(map);
+    (*vars)->width_size = line_count(map -> line);
+    printf("len: %d\n", (*vars)->height_size);
+    (*vars)->coordinates = malloc(sizeof(int *) * ((*vars)->height_size));
+    malloc_check((*vars)->coordinates);
+    int i = 0;
+    while (i < (*vars)->height_size)
+    {
+      (*vars)->coordinates[i] = init_row(map -> line);
+      map = map -> next;
+      i++;
+    }
+    i = 0;
+    printf("Here we are\n");
+    while (i < (*vars)->height_size)
+    {
+      int j = 0;
+      while (j < (*vars)->width_size)
+        printf("%d   ", (*vars)->coordinates[i][j++]);
+      printf("\n");
+      i++;
+    }
     // vars->coordinates[vars->height_size - 1] = init_row(vars); 
     // vars->coordinates[vars->height_size] = NULL; 
-    vars->mlx = NULL;
-    vars->win = NULL;
-    vars->x = 1500;
-    vars->y = 1000;
-    vars->x_start = 640;
-    vars->y_start = -300;
-    vars->x_end = vars->x - vars->x_start;
-    vars->y_end = vars->y - vars->y_start;
-    vars->dx = vars->x_end - vars->x_start;
-    vars->dy = vars->y_end - vars->y_start;
+    // vars->mlx = NULL;
+    // vars->win = NULL;
+    // vars->x = 1500;
+    // vars->y = 1000;
+    // vars->x_start = 640;
+    // vars->y_start = -300;
+    // vars->x_end = vars->x - vars->x_start;
+    // vars->y_end = vars->y - vars->y_start;
+    // vars->dx = vars->x_end - vars->x_start;
+    // vars->dy = vars->y_end - vars->y_start;
 }
 
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2)

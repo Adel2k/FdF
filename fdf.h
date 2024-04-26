@@ -81,7 +81,7 @@ typedef struct s_map
 
 int     handler(int keysym, t_mlx_vars *vars);
 int     mouse_close(t_mlx_vars *vars);
-void    init_vars(t_mlx_vars *vars);
+void    init_vars(t_mlx_vars **vars, t_map *map);
 t_map    *parser(int fd, t_mlx_vars *vars);
 size_t	ft_strlen(const char *str);
 void	malloc_check(void *str);

@@ -27,6 +27,20 @@ void free_map(t_map *map)
     }
 }
 
+void free_vars(t_mlx_vars *vars)
+{
+    int i;
+
+    i = 0;
+    while (i < vars->height_size)
+    {
+        free(vars->coordinates[i]);
+        i++;
+    }
+    free(vars->coordinates);
+    free(vars);
+}
+
 int main(int ac, char **av)
 {
     int fd;
@@ -47,14 +61,9 @@ int main(int ac, char **av)
 
     printf("hello\n");
     print_map(map);
+    init_vars(&vars, map);
     free_map(map);
-
-
-
-
-
-
-
+    free_vars(vars);
 
     //    int z = vars->coordinates[4][0];
     // printf("%d\n", z);
@@ -71,6 +80,4 @@ int main(int ac, char **av)
 //     mlx_hook(vars->win, 17, 0, mouse_close, vars);
 //     mlx_key_hook(vars->win, handler, vars);
 //     mlx_loop(vars->mlx);
-
-    free(vars);
 }
