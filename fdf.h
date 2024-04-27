@@ -27,8 +27,6 @@ typedef struct n_cord
     int     z;
     int     i;
     int     j;
-    int     iso_x;
-    int     iso_y;
 }   t_cord;
 
 typedef struct  n_points
@@ -81,7 +79,10 @@ typedef struct s_map
   char **line;
   struct s_map  *next;
 }  t_map;
-
+void	isometric(t_points *p);
+void	rotate_x(t_points *p);
+void	rotate_y(t_points *p);
+void	rotate_z(t_points *p);
 int     handler(int keysym, t_mlx_vars *vars);
 int     mouse_close(t_mlx_vars *vars);
 void    init_vars(t_mlx_vars **vars, t_map *map);
@@ -97,8 +98,5 @@ int     count_width(char **args);
 void map_generating(t_mlx_vars *vars);
 void bresnham(t_mlx_vars *vars, t_coordinates *xy) ;
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
-void	rotate_z(int *x, int *y, double z_angle);
-void	rotate_y(int *x, int *z, double y_angle);
-void    rotate_x(int *y, int *z, double x_angle);
 
 #endif
