@@ -6,12 +6,11 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:50:13 by aeminian          #+#    #+#             */
-/*   Updated: 2024/04/13 13:03:00 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:20:01 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

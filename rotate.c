@@ -1,5 +1,16 @@
-#include "fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/27 19:01:33 by aeminian          #+#    #+#             */
+/*   Updated: 2024/04/27 19:02:38 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "fdf.h"
 
 void	isometric(t_points *p)
 {
@@ -48,17 +59,12 @@ void	rotate_z(t_points *p)
 	int	prev_x2;
 
 	prev_x1 = p->point1.x;
-	prev_x2 = p->point2.x;	// rotate_y(&p->point1.x, &p->point1.z, 0.50);
-	// rotate_z(&p->point1.x, &p->point1.y, 0.50);
-    // p->point1.iso_x = (p->point1.x - p->point1.y) * cos(45);
-    // p->point1.iso_y = (p->point1.x + p->point1.y) * sin(45) ;
-	// p->point2.iso_x = (p->point2.x - p->point2.y) * cos(45);
+	prev_x2 = p->point2.x;
 	p->point1.x = prev_x1 * cos(0.00) - p->point1.y * sin(0.00);
 	p->point1.y = prev_x1 * sin(0.00) + p->point1.y * cos(0.00);
 	p->point2.x = prev_x2 * cos(0.00) - p->point2.y * sin(0.00);
 	p->point2.y = prev_x2 * sin(0.00) + p->point2.y * cos(0.00);
 }
-
 // void	rotate_y(int *x, int *z, double y_angle)
 // {
 // 	int	prev_x;
