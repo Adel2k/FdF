@@ -15,3 +15,14 @@ char	*ft_strchr(const char *str, const int c)
 	}
 	return (NULL);
 }
+
+t_gradient	*init_row(char **line)
+{
+	t_gradient	*res;
+	int	len;
+
+	len = line_count(line);
+	res = malloc(sizeof(t_gradient) * len);
+	malloc_check(res);
+	return (res);
+}

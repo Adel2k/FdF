@@ -17,11 +17,19 @@ void	zooming(int keysym, t_mlx_vars *vars)
 	if (keysym == XK_plus)
 		vars->line += 1;
 	else
-		printf("%d\n", vars->line);
-	
-	vars->line -= 50;
+		vars->line -= 1;
 }
-
+void position(int keysym, t_mlx_vars *vars)
+{
+	if (keysym == XK_Up)
+		vars->x_start -= 1;
+	if (keysym == XK_Down)
+		vars->x_start += 1;
+	if (keysym == XK_Left)
+		vars->y_start -= 1;
+	if (keysym == XK_Right)
+		vars->x_start += 1;
+}
 int	handler(int keysym, t_mlx_vars *vars)
 {
 	if (keysym == XK_Escape)
@@ -33,7 +41,10 @@ int	handler(int keysym, t_mlx_vars *vars)
 	}
 	if (keysym == XK_plus || keysym == XK_minus)
 		zooming(keysym, vars);
-
+	if (keysym == XK_Up || keysym == XK_Down|| keysym == XK_Right || keysym == XK_Left)
+		position(keysym, vars);
+	mlx_clear_window(vars->mlx, vars->win);
+	map_generating(vars);
 	return (0);
 }
 

@@ -113,6 +113,7 @@ typedef struct s_mlx_vars
 	int		start;
 	int		color;
 	int		line;
+	char	*name;
 }	t_mlx_vars;
 
 typedef struct s_map
@@ -120,31 +121,42 @@ typedef struct s_map
 	char			**line;
 	struct s_map	*next;
 }	t_map;
-void			isometric(t_points *p);
-void			rotate_x(t_points *p);
-void			rotate_y(t_points *p);
-void			rotate_z(t_points *p);
-int				handler(int keysym, t_mlx_vars *vars);
+////////////////////////////VALIDATION & PARSING////////////////////////////////
 int				line_count(char **map);
 int				map_len(t_map *map);
 void			add_to_map(t_map **map, char *str);
-int				mouse_close(t_mlx_vars *vars);
 void			init_vars(t_mlx_vars **vars, t_map *map);
 t_map			*parser(int fd, t_mlx_vars *vars);
-size_t			ft_strlen(const char *str);
-void			malloc_check(void *str);
 int				is_fdf(char *input, char *str);
 void			arguments_check(int ac, char **av);
-char	**ft_split(char const *s, char c);
+char			**ft_split(char const *s, char c);
 void			error_handle(char *msg);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				count_width(char **args);
 void			map_generating(t_mlx_vars *vars);
-void			bresnham(t_mlx_vars *vars, t_coordinates *xy, t_cord *ij);
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
-int				ft_atoi(const char *str);
+void			do_matrix(t_mlx_vars **vars, t_map *map);
+/////////////////////////////ROTATING & 3DPART//////////////////////////////////
+void			isometric(t_points *p);
+void			rotate_x(t_points *p);
+void			rotate_y(t_points *p);
+void			bresnham(t_mlx_vars *vars, t_coordinates *xy);
+void			rotate_z(t_points *p);
+int				gradient(int startcolor, int endcolor, int pix, t_mlx_vars *vars);
+///////////////////////////////UTILS////////////////////////////////////////////
+size_t			ft_strlen(const char *str);
+void			malloc_check(void *str);
+void			free_vars(t_mlx_vars *vars);
+void			free_map(t_map *map);
+void    		free_matrix(t_map *map, t_mlx_vars *vars);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_atoi_base(char *str);
+int				ft_atoi(const char *str);
 char			*ft_strchr(const char *str, const int c);
-int	convert_to_hex(char *str);
-char	**alt_split(char const *s, char c);
+int				convert_to_hex(char *str);
+void			mlx_side(t_mlx_vars *vars);
+t_gradient		*init_row(char **line);
+/////////////////////////////KEY_FUNCTIONS//////////////////////////////////
+int				handler(int keysym, t_mlx_vars *vars);
+int				mouse_close(t_mlx_vars *vars);
+
 #endif

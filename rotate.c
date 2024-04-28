@@ -65,20 +65,3 @@ void	rotate_z(t_points *p)
 	p->point2.x = prev_x2 * cos(0.00) - p->point2.y * sin(0.00);
 	p->point2.y = prev_x2 * sin(0.00) + p->point2.y * cos(0.00);
 }
-// void	rotate_y(int *x, int *z, double y_angle)
-// {
-// 	int	prev_x;
-
-// 	prev_x = *x;
-// 	*x = prev_x * cos(y_angle) + *z * sin(y_angle);
-// 	*z = prev_x * -sin(y_angle) + *z * cos(y_angle);
-// }
-// void	rotate_z(int *x, int *y, double z_angle)
-// {
-// 	t_cord	prev;
-
-// 	prev.x = *x;
-// 	prev.y = *y;
-// 	*x = prev.x * cos(z_angle) - prev.y * sin(z_angle);
-// 	*y = prev.x * sin(z_angle) + prev.y * cos(z_angle);
-// }

@@ -12,6 +12,39 @@
 
 #include "fdf.h"
 
+void	do_matrix(t_mlx_vars **vars, t_map *map)
+{
+	int		i;
+	int		j;
+	char	**info;
+
+	i = 0;
+	while (i < (*vars)->height_size)
+	{
+		if ((*vars)->width_size != line_count(map->line))
+			error_handle("Invalid map!\n");
+		(*vars)->coordinates[i] = init_row(map->line);
+		j = 0;
+		while (map->line[j])
+		{
+			if (strchr(map->line[j], ','))
+			{
+				info = ft_split(map->line[j], ',');
+				(*vars)->coordinates[i][j].z = ft_atoi(info[0]);
+				(*vars)->coordinates[i][j].color = ft_atoi_base(info[1]);
+			}
+			else
+			{
+				(*vars)->coordinates[i][j].z = ft_atoi(map->line[j]);
+				(*vars)->coordinates[i][j].color = 85;
+			}
+			j++;
+		}
+		map = map->next;
+		i++;
+	}
+}
+
 int	is_fdf(char *input, char *str)
 {
 	int	len;
@@ -34,26 +67,6 @@ int	is_fdf(char *input, char *str)
 		len++;
 	}
 	return (0);
-}
-
-void	arguments_check(int ac, char **av)
-{
-	if (ac <= 1)
-	{
-		write(2, "Please enter the file name!\n", 29);
-		exit(EXIT_SUCCESS);
-	}
-	else if (ac > 2)
-	{
-		write(2, "Too many arguments!\n", 21);
-		exit(EXIT_FAILURE);
-	}
-	else if (is_fdf(av[1], ".fdf"))
-	{
-		write(2, "Invalid argument!\n", 19);
-		write(2, "Enter a file in <name>.fdf format.\n", 36);
-		exit(EXIT_FAILURE);
-	}
 }
 
 t_map	*parser(int fd, t_mlx_vars *vars)
