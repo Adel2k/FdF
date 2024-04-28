@@ -21,7 +21,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "get_next_line.h"
-# include "minilibx/mlx.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct n_img
 {
@@ -63,11 +63,17 @@ typedef struct n_coordinates
 	int	max;
 }	t_coordinates;
 
+typedef struct s_gradient
+{
+	int	z;
+	int color;
+}	t_gradient;
+
 typedef struct s_mlx_vars
 {
 	void	*mlx;
 	void	*win;
-	int		**coordinates;
+	t_gradient		**coordinates;
 	t_cord	*cord;
 	t_img	img;
 	int		y;
@@ -85,6 +91,7 @@ typedef struct s_mlx_vars
 	int		z;
 	char	**row;
 	int		start;
+	int		color;
 }	t_mlx_vars;
 
 typedef struct s_map
@@ -97,6 +104,9 @@ void			rotate_x(t_points *p);
 void			rotate_y(t_points *p);
 void			rotate_z(t_points *p);
 int				handler(int keysym, t_mlx_vars *vars);
+int				line_count(char **map);
+int				map_len(t_map *map);
+void			add_to_map(t_map **map, char *str);
 int				mouse_close(t_mlx_vars *vars);
 void			init_vars(t_mlx_vars **vars, t_map *map);
 t_map			*parser(int fd, t_mlx_vars *vars);
@@ -109,7 +119,11 @@ void			error_handle(char *msg);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				count_width(char **args);
 void			map_generating(t_mlx_vars *vars);
-void			bresnham(t_mlx_vars *vars, t_coordinates *xy);
+void			bresnham(t_mlx_vars *vars, t_coordinates *xy, t_cord *ij);
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
-
+int				ft_atoi(const char *str);
+int				ft_atoi_base(char *str);
+char			*ft_strchr(const char *str, const int c);
+int	convert_to_hex(char *str);
+char	**alt_split(char const *s, char c);
 #endif
