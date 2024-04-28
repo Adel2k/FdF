@@ -10,8 +10,8 @@ void	isometric_projection(t_points *p)
 
 void	first_point(t_points *p, int x, int y, t_mlx_vars *vars)
 {
-	p->point1.x = vars->x_start + (x * 15);
-	p->point1.y = vars->y_start + (y * 15);
+	p->point1.x = vars->x_start + (x * vars->line);
+	p->point1.y = vars->y_start + (y * vars->line);
 }
 
 void	points(t_cord *xy, t_points *p, t_mlx_vars *vars)
@@ -21,8 +21,8 @@ void	points(t_cord *xy, t_points *p, t_mlx_vars *vars)
 	if (xy->x + 1 < vars->width_size)
 	{
 		first_point(p, xy->x, xy->y, vars);
-		p->point2.x = vars->x_start + (xy->x + 1) * 15;
-		p->point2.y = vars->y_start + xy->y * 15;
+		p->point2.x = vars->x_start + (xy->x + 1) * vars->line;
+		p->point2.y = vars->y_start + xy->y * vars->line;
 		p->point1.z = vars->coordinates[xy->y][xy->x].z;
 		p->point2.z = vars->coordinates[xy->y][xy->x + 1].z;
 		isometric_projection(p);
@@ -32,8 +32,8 @@ void	points(t_cord *xy, t_points *p, t_mlx_vars *vars)
 	if (xy->y + 1 < vars->height_size)
 	{
 		first_point(p, xy->x, xy->y, vars);
-		p->point2.x = vars->x_start + xy->x * 15;
-		p->point2.y = vars->y_start + (xy->y + 1) * 15;
+		p->point2.x = vars->x_start + xy->x * vars->line;
+		p->point2.y = vars->y_start + (xy->y + 1) * vars->line;
 		p->point1.z = vars->coordinates[xy->y][xy->x].z;
 		p->point2.z = vars->coordinates[xy->y + 1][xy->x].z;
 		isometric_projection(p);

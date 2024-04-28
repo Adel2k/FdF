@@ -8,15 +8,6 @@ t_gradient	*init_row(char **line)
 	len = line_count(line);
 	res = malloc(sizeof(t_gradient) * len);
 	malloc_check(res);
-	// while (line[i])
-	// {
-	// 	if (ft_strchr(line[i], ','))
-	// 	{
-
-	// 	}
-	// 	res[i] = ft_atoi(line[i]);
-	// 	i++;
-	// }
 	return (res);
 }
 
@@ -42,7 +33,23 @@ void	add_to_map(t_map **map, char *str)
 		temp->next = new;
 	}
 }
-
+int	line_size(t_mlx_vars *vars)
+{
+	if (vars->height_size <= 10 && vars->width_size <= 10)
+		return (200);
+	else if (vars->height_size <= 25 && vars->width_size <= 25)
+		return (100);
+	else if (vars->height_size <= 50 && vars->width_size <= 50)
+		return (50);
+	else if (vars->height_size <= 100 && vars->width_size <= 100)
+		return (30);
+	else if (vars->height_size <= 200 && vars->width_size <= 200)
+		return (15);
+	else if (vars->height_size <= 150 && vars->width_size <= 150)
+		return (10);
+	else
+		return (5);
+}
 void	init_vars(t_mlx_vars **vars, t_map *map)
 {
 	int	i;
@@ -86,6 +93,7 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 	(*vars)->y_end = (*vars)->y - (*vars)->y_start;
 	(*vars)->dx = (*vars)->x_end - (*vars)->x_start;
 	(*vars)->dy = (*vars)->y_end - (*vars)->y_start;
+	(*vars)->line = line_size(*vars);
 }
 
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2)

@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
+# include <X11/keysym.h>
 # include "get_next_line.h"
 # include "minilibx-linux/mlx.h"
 
@@ -46,6 +47,21 @@ typedef struct n_points
 	t_cord	point1;
 	t_cord	point2;
 }	t_points;
+
+typedef struct s_color
+{
+	int	start_color;
+	int	start_r;
+	int	start_g;
+	int	start_b;
+	int	end_color;
+	int	end_r;
+	int	end_g;
+	int	end_b;
+	int	delta_r;
+	int	delta_g;
+	int	delta_b;
+}	t_color;
 
 typedef struct n_coordinates
 {
@@ -92,6 +108,7 @@ typedef struct s_mlx_vars
 	char	**row;
 	int		start;
 	int		color;
+	int		line;
 }	t_mlx_vars;
 
 typedef struct s_map

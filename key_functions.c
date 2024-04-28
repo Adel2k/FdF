@@ -12,15 +12,28 @@
 
 #include "fdf.h"
 
+void	zooming(int keysym, t_mlx_vars *vars)
+{
+	if (keysym == XK_plus)
+		vars->line += 1;
+	else
+		printf("%d\n", vars->line);
+	
+	vars->line -= 50;
+}
+
 int	handler(int keysym, t_mlx_vars *vars)
 {
-	if (keysym == 53)
+	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 		free(vars->mlx);
 		exit(0);
 	}
+	if (keysym == XK_plus || keysym == XK_minus)
+		zooming(keysym, vars);
+
 	return (0);
 }
 
