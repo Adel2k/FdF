@@ -21,7 +21,7 @@ void	add_to_map(t_map **map, char *str)
 	new = malloc(sizeof(t_map));
 	if (!new)
 		return ;
-	new->line = ft_split(str);
+	new->line = ft_split(str, ' ');
 	new->next = NULL;
 	temp = *map;
 	if (!temp)
@@ -38,11 +38,11 @@ int	line_size(t_mlx_vars *vars)
 	if (vars->height_size <= 10 && vars->width_size <= 10)
 		return (200);
 	else if (vars->height_size <= 25 && vars->width_size <= 25)
-		return (100);
+		return (40);
 	else if (vars->height_size <= 50 && vars->width_size <= 50)
-		return (50);
-	else if (vars->height_size <= 100 && vars->width_size <= 100)
 		return (30);
+	else if (vars->height_size <= 100 && vars->width_size <= 100)
+		return (20);
 	else if (vars->height_size <= 200 && vars->width_size <= 200)
 		return (15);
 	else if (vars->height_size <= 150 && vars->width_size <= 150)
@@ -50,26 +50,25 @@ int	line_size(t_mlx_vars *vars)
 	else
 		return (5);
 }
-void	init_vars(t_mlx_vars **vars, t_map *map)
-{
-	int	i;
-	int j;
-	char **info;
 
-	(*vars)->height_size = map_len(map);
-	(*vars)->width_size = line_count(map->line);
-	(*vars)->coordinates = malloc(sizeof(t_gradient *) * ((*vars)->height_size));
-	malloc_check((*vars)->coordinates);
+void	do_matrix(t_mlx_vars **vars, t_map *map)
+{
+	int		i;
+	int		j;
+	char	**info;
+
 	i = 0;
 	while (i < (*vars)->height_size)
 	{
+		if ((*vars)->width_size != line_count(map->line))
+			error_handle("Invalid map!\n");
 		(*vars)->coordinates[i] = init_row(map->line);
 		j = 0;
 		while (map->line[j])
 		{
 			if (strchr(map->line[j], ','))
 			{
-				info = alt_split(map->line[j], ',');
+				info = ft_split(map->line[j], ',');
 				(*vars)->coordinates[i][j].z = ft_atoi(info[0]);
 				(*vars)->coordinates[i][j].color = ft_atoi_base(info[1]);
 			}
@@ -83,6 +82,15 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 		map = map->next;
 		i++;
 	}
+}
+void	init_vars(t_mlx_vars **vars, t_map *map)
+{
+
+	(*vars)->height_size = map_len(map);
+	(*vars)->width_size = line_count(map->line);
+	(*vars)->coordinates = malloc(sizeof(t_gradient *) * ((*vars)->height_size));
+	malloc_check((*vars)->coordinates);
+	do_matrix(vars, map);
 	(*vars)->mlx = NULL;
 	(*vars)->win = NULL;
 	(*vars)->x = 1500;

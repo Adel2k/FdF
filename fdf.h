@@ -23,6 +23,10 @@
 # include <X11/keysym.h>
 # include "get_next_line.h"
 # include "minilibx-linux/mlx.h"
+# define R(a) (a) >> 16
+# define G(a) ((a) >> 8) & 0xFF
+# define B(a) (a) & 0xFF
+# define RGB(a, b, c) ((a) << 16) + ((b) << 8) + (c)
 
 typedef struct n_img
 {
@@ -131,7 +135,7 @@ size_t			ft_strlen(const char *str);
 void			malloc_check(void *str);
 int				is_fdf(char *input, char *str);
 void			arguments_check(int ac, char **av);
-char			**ft_split(char const *s);
+char	**ft_split(char const *s, char c);
 void			error_handle(char *msg);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				count_width(char **args);

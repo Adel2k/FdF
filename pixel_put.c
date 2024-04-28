@@ -26,11 +26,11 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 void	bresnham(t_mlx_vars *vars, t_coordinates *xy, t_cord *ij)
 {
 	int	i;
-
+	(void)ij;
 	i = 0;
 	while (i <= xy->max)
 	{
-		my_pixel_put(&vars->img, xy->x, xy->y, vars->coordinates[ij->y][ij->x].color);
+		my_pixel_put(&vars->img, xy->x, xy->y, vars->color);
 		if (xy->p >= 0)
 		{
 			if (xy->dx_abs > xy->dy_abs)

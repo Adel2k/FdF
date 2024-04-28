@@ -34,7 +34,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-static size_t	word_count(const char *s)
+static size_t	word_count(const char *s, char c)
 {
 	size_t	count;
 	size_t	i;
@@ -43,23 +43,23 @@ static size_t	word_count(const char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13))
+		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 		{
 			count++;
-			while (s[i] && s[i] != 32 && !(s[i] >= 9 && s[i] <= 13))
+			while (s[i] && s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 			{
 				i++;
 				if (s[i] == 0)
 					break ;
 			}
 		}
-		else if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13))
+		else if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13) || s[i] == c)
 			i++;
 	}
 	return (count);
 }
 
-static char	**split(char **memory, char const *s)
+static char	**split(char **memory, char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -69,12 +69,12 @@ static char	**split(char **memory, char const *s)
 	temp = memory;
 	while (s[i])
 	{
-		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13))
+		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 		{
 			j = i;
-			while ((s[i] != 32 && !(s[i] >= 9 && s[i] <= 13)) && s[i] != '\0')
+			while ((s[i] != 32 && !(s[i] >= 9 && s[i] <= 13)) && s[i] != '\0' && s[i] != c)
 				i++;
-			if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13) || s[i] == 0)
+			if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13) || s[i] == 0 || s[i] == c)
 			{
 				*temp = ft_substr(s, j, i - j);
 				temp++;
@@ -87,22 +87,22 @@ static char	**split(char **memory, char const *s)
 	return (memory);
 }
 
-char	**ft_split(char const *s)
+char	**ft_split(char const *s, char c)
 {
 	char	**memory;
 
 	if (!s)
 		return (NULL);
-	while (*s == 32 || (*s >= 9 && *s <= 13))
+	while (*s == 32 || (*s >= 9 && *s <= 13) || *s == c)
 	{
 		s++;
 		if (*s == 0)
 			return (NULL);
 	}
-	memory = (char **)malloc(sizeof(char *) * (word_count(s) + 1));
+	memory = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (!memory)
 		return (NULL);
-	return (split(memory, s));
+	return (split(memory, s, c));
 }
 /*
 int main ()
