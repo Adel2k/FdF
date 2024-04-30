@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 21:58:03 by aeminian          #+#    #+#             */
+/*   Updated: 2024/04/29 21:59:21 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int	line_count(char **map)
@@ -71,11 +83,11 @@ int	ft_atoi_base(char *str)
 	if (str[i] == '0')
 	{
 		i++;
-		if(str[i] == 'x')
+		if (str[i] == 'x')
 			i++;
 	}
 	numb = convert_to_hex(&str[i]);
-	return(sign * numb);
+	return (sign * numb);
 }
 
 int	convert_to_hex(char *str)
@@ -87,7 +99,8 @@ int	convert_to_hex(char *str)
 
 	len = ft_strlen(str);
 	i = 0;
-	while(i < len)
+	numb = 0;
+	while (i < len)
 	{
 		digit = str[len - 1 - i];
 		if (digit >= '0' && digit <= '9')

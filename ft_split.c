@@ -6,7 +6,7 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:50:13 by aeminian          #+#    #+#             */
-/*   Updated: 2024/04/27 19:20:01 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:56:09 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static size_t	word_count(const char *s, char c)
 		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 		{
 			count++;
-			while (s[i] && s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
+			while (s[i] && s[i] != 32 && \
+			!(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 			{
 				i++;
 				if (s[i] == 0)
@@ -59,11 +60,10 @@ static size_t	word_count(const char *s, char c)
 	return (count);
 }
 
-static char	**split(char **memory, char const *s, char c)
+static char	**split(char **memory, char const *s, char c, char **temp)
 {
 	int		i;
 	int		j;
-	char	**temp;
 
 	i = 0;
 	temp = memory;
@@ -72,9 +72,11 @@ static char	**split(char **memory, char const *s, char c)
 		if (s[i] != 32 && !(s[i] >= 9 && s[i] <= 13) && s[i] != c)
 		{
 			j = i;
-			while ((s[i] != 32 && !(s[i] >= 9 && s[i] <= 13)) && s[i] != '\0' && s[i] != c)
+			while ((s[i] != 32 && !(s[i] >= 9 && s[i] <= 13)) \
+			&& s[i] != '\0' && s[i] != c)
 				i++;
-			if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13) || s[i] == 0 || s[i] == c)
+			if (s[i] == 32 || (s[i] >= 9 && s[i] <= 13) \
+			|| s[i] == 0 || s[i] == c)
 			{
 				*temp = ft_substr(s, j, i - j);
 				temp++;
@@ -90,7 +92,9 @@ static char	**split(char **memory, char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**memory;
+	char	*temp;
 
+	temp = NULL;
 	if (!s)
 		return (NULL);
 	while (*s == 32 || (*s >= 9 && *s <= 13) || *s == c)
@@ -102,7 +106,7 @@ char	**ft_split(char const *s, char c)
 	memory = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (!memory)
 		return (NULL);
-	return (split(memory, s, c));
+	return (split(memory, s, c, &temp));
 }
 /*
 int main ()

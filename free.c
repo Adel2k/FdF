@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 21:53:02 by aeminian          #+#    #+#             */
+/*   Updated: 2024/04/29 21:53:56 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-void    free_matrix(t_map *map, t_mlx_vars *vars)
+void	free_matrix(t_map *map, t_mlx_vars *vars)
 {
-    free_map(map);
-    free_vars(vars);
+	free_map(map);
+	free_vars(vars);
 }
+
 void	free_map(t_map *map)
 {
 	t_map	*tmp;

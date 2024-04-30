@@ -6,17 +6,33 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:47:05 by aeminian          #+#    #+#             */
-/*   Updated: 2024/04/27 20:30:25 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:52:47 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	do_atoi(t_mlx_vars **vars, t_map *map, int j, int i)
+{
+	char	**info;
+
+	if (strchr(map->line[j], ','))
+	{
+		info = ft_split(map->line[j], ',');
+		(*vars)->coordinates[i][j].z = ft_atoi(info[0]);
+		(*vars)->coordinates[i][j].color = ft_atoi_base(info[1]);
+	}
+	else
+	{
+		(*vars)->coordinates[i][j].z = ft_atoi(map->line[j]);
+		(*vars)->coordinates[i][j].color = 85;
+	}
+}
+
 void	do_matrix(t_mlx_vars **vars, t_map *map)
 {
 	int		i;
 	int		j;
-	char	**info;
 
 	i = 0;
 	while (i < (*vars)->height_size)
@@ -27,17 +43,7 @@ void	do_matrix(t_mlx_vars **vars, t_map *map)
 		j = 0;
 		while (map->line[j])
 		{
-			if (strchr(map->line[j], ','))
-			{
-				info = ft_split(map->line[j], ',');
-				(*vars)->coordinates[i][j].z = ft_atoi(info[0]);
-				(*vars)->coordinates[i][j].color = ft_atoi_base(info[1]);
-			}
-			else
-			{
-				(*vars)->coordinates[i][j].z = ft_atoi(map->line[j]);
-				(*vars)->coordinates[i][j].color = 85;
-			}
+			do_atoi(vars, map, j, i);
 			j++;
 		}
 		map = map->next;
@@ -76,10 +82,11 @@ t_map	*parser(int fd, t_mlx_vars *vars)
 
 	vars->height_size = 0;
 	vars->width_size = 0;
+	map = NULL;
 	while (1)
 	{
 		buffer = get_next_line(fd);
-		if (buffer == 0)
+		if (buffer == NULL)
 			break ;
 		add_to_map(&map, buffer);
 		free(buffer);

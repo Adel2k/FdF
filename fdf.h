@@ -6,7 +6,7 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:03:16 by aeminian          #+#    #+#             */
-/*   Updated: 2024/04/27 19:14:37 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:22:37 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
-# include <X11/keysym.h>
+// # include <X11/keysym.h>
 # include "get_next_line.h"
-# include "minilibx-linux/mlx.h"
+# include "minilibx/mlx.h"
 # define R(a) (a) >> 16
 # define G(a) ((a) >> 8) & 0xFF
 # define B(a) (a) & 0xFF
@@ -86,34 +86,34 @@ typedef struct n_coordinates
 typedef struct s_gradient
 {
 	int	z;
-	int color;
+	int	color;
 }	t_gradient;
 
 typedef struct s_mlx_vars
 {
-	void	*mlx;
-	void	*win;
+	void			*mlx;
+	void			*win;
 	t_gradient		**coordinates;
-	t_cord	*cord;
-	t_img	img;
-	int		y;
-	int		x;
-	int		width_size;
-	int		height_size;
-	int		y_start;
-	int		x_start;
-	int		x_end;
-	int		y_end;
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		z;
-	char	**row;
-	int		start;
-	int		color;
-	int		line;
-	char	*name;
+	t_cord			*cord;
+	t_img			img;
+	int				y;
+	int				x;
+	int				width_size;
+	int				height_size;
+	int				y_start;
+	int				x_start;
+	int				x_end;
+	int				y_end;
+	int				dx;
+	int				dy;
+	int				sx;
+	int				sy;
+	int				z;
+	char			**row;
+	int				start;
+	int				color;
+	int				line;
+	char			*name;
 }	t_mlx_vars;
 
 typedef struct s_map
@@ -129,25 +129,30 @@ void			init_vars(t_mlx_vars **vars, t_map *map);
 t_map			*parser(int fd, t_mlx_vars *vars);
 int				is_fdf(char *input, char *str);
 void			arguments_check(int ac, char **av);
+void			generat2(t_cord *x, t_points *p, t_mlx_vars *v);
+void			generat(t_cord *x, t_points *p, t_mlx_vars *v);
 char			**ft_split(char const *s, char c);
 void			error_handle(char *msg);
 int				count_width(char **args);
 void			map_generating(t_mlx_vars *vars);
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
 void			do_matrix(t_mlx_vars **vars, t_map *map);
+void			first_point(t_points *p, int x, int y, t_mlx_vars *vars);
+void			isometric_projection(t_points *p);
 /////////////////////////////ROTATING & 3DPART//////////////////////////////////
 void			isometric(t_points *p);
 void			rotate_x(t_points *p);
 void			rotate_y(t_points *p);
 void			bresnham(t_mlx_vars *vars, t_coordinates *xy);
 void			rotate_z(t_points *p);
-int				gradient(int startcolor, int endcolor, int pix, t_mlx_vars *vars);
+int				gradient(int startcolor, int endcolor, \
+				int pix, t_mlx_vars *vars);
 ///////////////////////////////UTILS////////////////////////////////////////////
 size_t			ft_strlen(const char *str);
 void			malloc_check(void *str);
 void			free_vars(t_mlx_vars *vars);
 void			free_map(t_map *map);
-void    		free_matrix(t_map *map, t_mlx_vars *vars);
+void			free_matrix(t_map *map, t_mlx_vars *vars);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_atoi_base(char *str);
 int				ft_atoi(const char *str);

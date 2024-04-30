@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 21:56:34 by aeminian          #+#    #+#             */
+/*   Updated: 2024/04/29 21:57:41 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	add_to_map(t_map **map, char *str)
@@ -13,7 +25,7 @@ void	add_to_map(t_map **map, char *str)
 	if (!new->line)
 	{
 		free(new);
-		error_handle("Something went wrong!\n");
+		error_handle("Split error\n");
 	}
 	new->next = NULL;
 	temp = *map;
@@ -26,6 +38,7 @@ void	add_to_map(t_map **map, char *str)
 		temp->next = new;
 	}
 }
+
 int	line_size(t_mlx_vars *vars)
 {
 	if (vars->height_size <= 10 && vars->width_size <= 10)
@@ -43,12 +56,13 @@ int	line_size(t_mlx_vars *vars)
 	else
 		return (2);
 }
+
 void	init_vars(t_mlx_vars **vars, t_map *map)
 {
-
 	(*vars)->height_size = map_len(map);
 	(*vars)->width_size = line_count(map->line);
-	(*vars)->coordinates = malloc(sizeof(t_gradient *) * ((*vars)->height_size));
+	(*vars)->coordinates = malloc(sizeof(t_gradient *) \
+	* ((*vars)->height_size));
 	malloc_check((*vars)->coordinates);
 	do_matrix(vars, map);
 	(*vars)->mlx = NULL;

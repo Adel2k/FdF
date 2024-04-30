@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generating.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 21:23:11 by aeminian          #+#    #+#             */
+/*   Updated: 2024/04/29 21:27:00 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	isometric_projection(t_points *p)
@@ -14,34 +26,12 @@ void	first_point(t_points *p, int x, int y, t_mlx_vars *vars)
 	p->point1.y = vars->y_start + (y * vars->line);
 }
 
-void	points(t_cord *xy, t_points *p, t_mlx_vars *vars)
+void	points(t_cord *x, t_points *p, t_mlx_vars *v)
 {
-	t_coordinates	temp;
-
-	if (xy->x + 1 < vars->width_size)
-	{
-		first_point(p, xy->x, xy->y, vars);
-		p->point2.x = vars->x_start + (xy->x + 1) * vars->line;
-		p->point2.y = vars->y_start + xy->y * vars->line;
-		p->point1.z = vars->coordinates[xy->y][xy->x].z;
-		p->point2.z = vars->coordinates[xy->y][xy->x + 1].z;
-		isometric_projection(p);
-		temp = setting_vars(p->point1.x, p->point1.y, p->point2.x, p->point2.y);
-		vars->color = gradient(vars->coordinates[xy->y][xy->x].color, vars->coordinates[xy->y][xy->x + 1].color, xy->x,vars);
-		bresnham(vars, &temp);
-	}
-	if (xy->y + 1 < vars->height_size)
-	{
-		first_point(p, xy->x, xy->y, vars);
-		p->point2.x = vars->x_start + xy->x * vars->line;
-		p->point2.y = vars->y_start + (xy->y + 1) * vars->line;
-		p->point1.z = vars->coordinates[xy->y][xy->x].z;
-		p->point2.z = vars->coordinates[xy->y + 1][xy->x].z;
-		isometric_projection(p);
-		temp = setting_vars(p->point1.x, p->point1.y, p->point2.x, p->point2.y);
-		vars->color = gradient(vars->coordinates[xy->y][xy->x].color, vars->coordinates[xy->y + 1][xy->x].color, xy->x,vars);
-		bresnham(vars, &temp);
-	}
+	if (x->x + 1 < v->width_size)
+		generat(x, p, v);
+	if (x->y + 1 < v->height_size)
+		generat2(x, p, v);
 }
 
 void	map_generating(t_mlx_vars *vars)
@@ -49,11 +39,11 @@ void	map_generating(t_mlx_vars *vars)
 	t_points	p;
 	t_cord		xy;
 
-	mlx_side(vars);
 	xy.y = 0;
 	while (xy.y < vars->height_size)
 	{
 		xy.x = 0;
+		mlx_side(vars);
 		while (xy.x + 1 <= vars->width_size)
 		{
 			points(&xy, &p, vars);
