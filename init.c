@@ -63,7 +63,6 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 	* ((*vars)->height_size));
 	malloc_check((*vars)->coordinates);
 	do_matrix(vars, map);
-		system("leaks fdf");
 	(*vars)->mlx = NULL;
 	(*vars)->win = NULL;
 	(*vars)->x = 1500;

@@ -62,7 +62,6 @@ void	starting(int fd, char *name)
 	map_generating(vars);
 	mlx_loop(vars->mlx);
 	free_matrix(map, vars);
-	
 }
 
 int	main(int ac, char **av)

@@ -24,7 +24,11 @@
 # include "get_next_line.h"
 # include "minilibx/mlx.h"
 
-typedef struct s_map t_map;
+typedef struct s_map
+{
+	char			**line;
+	struct s_map	*next;
+}	t_map;
 
 typedef struct n_img
 {
@@ -49,7 +53,6 @@ typedef struct n_points
 	t_cord	point1;
 	t_cord	point2;
 }	t_points;
-
 
 typedef struct n_coordinates
 {
@@ -106,12 +109,6 @@ typedef struct s_mlx_vars
 	float			alpha;
 	int				rotate;
 }	t_mlx_vars;
-
-typedef struct s_map
-{
-	char			**line;
-	struct s_map	*next;
-}	t_map;
 ////////////////////////////VALIDATION & PARSING////////////////////////////////
 int				line_count(char **map);
 int				map_len(t_map *map);
@@ -157,10 +154,7 @@ t_gradient		*init_row(char **line);
 int				line_size(t_mlx_vars *vars);
 /////////////////////////////KEY_FUNCTIONS//////////////////////////////////
 int				handler(int keysym, t_mlx_vars *vars);
-// int	handler(int keysym, t_mlx_vars *vars,t_map *map);
 int				mouse_close(t_mlx_vars *vars);
-
-
-int	zoom(t_mlx_vars *vars);
+int				zoom(t_mlx_vars *vars);
 
 #endif

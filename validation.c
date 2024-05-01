@@ -15,12 +15,20 @@
 void	do_atoi(t_mlx_vars **vars, t_map *map, int j, int i)
 {
 	char	**info;
+	int		k;
 
+	k = 0;
 	if (strchr(map->line[j], ','))
 	{
 		info = ft_split(map->line[j], ',');
 		(*vars)->coordinates[i][j].z = ft_atoi(info[0]);
 		(*vars)->coordinates[i][j].color = ft_atoi_base(info[1]);
+		while (info[k])
+		{
+			free(info[k]);
+			k++;
+		}
+		free(info);
 	}
 	else
 	{

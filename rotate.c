@@ -23,8 +23,8 @@ void	isometric(t_points *p, t_mlx_vars *vars)
 	p2.y = p->point2.y;
 	p->point1.x = (p1.x - p1.y) * cos(vars->rotate);
 	p->point1.y = (p1.x + p1.y) * sin(vars->rotate) - vars->zoom * p->point1.z;
-	p->point2.x = (p2.x - p2.y) * cos(vars->rotate );
-	p->point2.y = (p2.x + p2.y) * sin(vars->rotate ) - vars->zoom * p->point2.z;
+	p->point2.x = (p2.x - p2.y) * cos(vars->rotate);
+	p->point2.y = (p2.x + p2.y) * sin(vars->rotate) - vars->zoom * p->point2.z;
 }
 
 void	rotate_x(t_points *p, t_mlx_vars *vars)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_functions2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/01 15:50:49 by aeminian          #+#    #+#             */
+/*   Updated: 2024/05/01 15:50:51 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	zooming(int keysym, t_mlx_vars *vars)
@@ -35,7 +47,7 @@ void	view(int keysym, t_mlx_vars *vars)
 	}
 	if (keysym == 84)
 	{
-		vars->rotate= -47;
+		vars->rotate = -47;
 		vars->gamma += 0.1;
 	}
 	if (keysym == 85)

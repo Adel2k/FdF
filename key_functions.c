@@ -23,6 +23,7 @@ void	my_image_clear(t_img *data, t_mlx_vars *vars)
 		offset++;
 	}
 }
+
 void	first_pos(t_mlx_vars *vars)
 {
 	vars->rotate = 45;
@@ -36,19 +37,17 @@ void	first_pos(t_mlx_vars *vars)
 
 int	handler(int keysym, t_mlx_vars *vars)
 {
-	// system("leaks fdf");
 	if (keysym == 53)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 		mlx_clear_window(vars->mlx, vars->win);
 		mlx_destroy_window(vars->mlx, vars->win);
 		free_vars(vars);
-
 		exit(0);
 	}
 	if (keysym == 49)
 		first_pos(vars);
-	if (keysym == 69 || keysym == 78|| keysym == 24|| keysym == 27)
+	if (keysym == 69 || keysym == 78 || keysym == 24 || keysym == 27)
 		zooming(keysym, vars);
 	if (keysym == 126 || keysym == 125 || keysym == 124 || keysym == 123)
 		position(keysym, vars);
@@ -65,7 +64,7 @@ int	mouse_close(t_mlx_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 	mlx_clear_window(vars->mlx, vars->win);
 	mlx_destroy_window(vars->mlx, vars->win);
-	//system("leaks fdf");
+	free_vars(vars);
 	exit(0);
 	return (0);
 }
