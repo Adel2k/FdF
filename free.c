@@ -46,5 +46,4 @@ void	free_vars(t_mlx_vars *vars)
 		i++;
 	}
 	free(vars->coordinates);
-	free(vars);
 }

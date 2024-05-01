@@ -24,6 +24,13 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 	}
 }
 
+float	find_max(float x, float y)
+{
+	if (x > y)
+		return (x);
+	return (y);
+}
+
 void	bresnham(t_mlx_vars *vars, t_coordinates *xy)
 {
 	int	i;
@@ -47,27 +54,28 @@ void	bresnham(t_mlx_vars *vars, t_coordinates *xy)
 		xy->p += 2 * xy->min;
 		i++;
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img_ptr, 350, 0);
 }
 
 void	mlx_side(t_mlx_vars *vars)
 {
 	t_coordinates	side;
 
-	side = setting_vars(10, 0, 10, 1000);
+	side = setting_vars(2, 0, 2, 1000);
 	vars->color = 0xffffff;
 	bresnham(vars, &side);
 	mlx_string_put(vars->mlx, vars->win, 60, 50, 150, \
 	"Welcome to Penguin's FdF<3");
 	mlx_string_put(vars->mlx, vars->win, 60, 70, 150, \
 	"Isometric projection 3D");
-	mlx_string_put(vars->mlx, vars->win, 60, 85, 150, "Map Name: ");
-	mlx_string_put(vars->mlx, vars->win, 150, 85, 150, vars->name);
-	mlx_string_put(vars->mlx, vars->win, 30, 130, 150, \
+	mlx_string_put(vars->mlx, vars->win, 60, 90, 150, "Map Name: ");
+	mlx_string_put(vars->mlx, vars->win, 150, 90, 150, vars->name);
+	mlx_string_put(vars->mlx, vars->win, 25, 130, 150, \
 	"For zoom out press '+'");
-	mlx_string_put(vars->mlx, vars->win, 30, 150, 150, "For zoom in press '-'");
-	mlx_string_put(vars->mlx, vars->win, 30, 170, 150, \
-	"Use >, <, up and down buttons");
-	mlx_string_put(vars->mlx, vars->win, 30, 190, 150, \
+	mlx_string_put(vars->mlx, vars->win, 25, 150, 150, "For zoom in press '-'");
+	mlx_string_put(vars->mlx, vars->win, 25, 170, 150, \
+	"Use '>', '<', up and down buttons");
+	mlx_string_put(vars->mlx, vars->win, 25, 190, 150, \
+	"For height press 't' or 'space'");
+	mlx_string_put(vars->mlx, vars->win, 25, 220, 150, \
 	"For closing press 'ESC'");
 }

@@ -12,45 +12,50 @@
 
 #include "fdf.h"
 
-void	zooming(int keysym, t_mlx_vars *vars)
+void	my_image_clear(t_img *data, t_mlx_vars *vars)
 {
-	if (keysym == 69 || keysym == 24)
-		vars->line += 1;
-	if (keysym == 78 || keysym == 27)
-		vars->line -= 1;
-}
+	int	offset;
 
-void	position(int keysym, t_mlx_vars *vars)
+	offset = 0;
+	while (offset < (vars->y * data->line_len))
+	{
+		*(data->img_pixels_ptr + offset) = 0x0;
+		offset++;
+	}
+}
+void	first_pos(t_mlx_vars *vars)
 {
-	if (keysym == 126)
-		vars->y_start -= 5;
-	if (keysym == 125)
-		vars->y_start += 5;
-	if (keysym == 124)
-		vars->x_start += 5;
-	if (keysym == 123)
-		vars->x_start -= 5;
+	vars->rotate = 45;
+	vars->view = 0;
+	vars->gamma = 0;
+	vars->x_start = vars->width_size / 2 + 350;
+	vars->y_start = (vars->height_size / 2) + 250;
+	vars->zoom = zoom(vars);
+	vars->line = line_size(vars);
 }
 
 int	handler(int keysym, t_mlx_vars *vars)
 {
+	// system("leaks fdf");
 	if (keysym == 53)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 		mlx_clear_window(vars->mlx, vars->win);
 		mlx_destroy_window(vars->mlx, vars->win);
-		free(vars->mlx);
+		free_vars(vars);
+
 		exit(0);
 	}
-	if (keysym == 69 || keysym == 24 || keysym == 78 || keysym == 27)
+	if (keysym == 49)
+		first_pos(vars);
+	if (keysym == 69 || keysym == 78|| keysym == 24|| keysym == 27)
 		zooming(keysym, vars);
 	if (keysym == 126 || keysym == 125 || keysym == 124 || keysym == 123)
 		position(keysym, vars);
+	if (keysym == 82 || keysym == 83 || keysym == 84 || keysym == 85)
+		view(keysym, vars);
 	mlx_clear_window(vars->mlx, vars->win);
-	mlx_destroy_image(vars->mlx, vars->img.img_ptr);
-	vars->img.img_ptr = mlx_new_image(vars->mlx, vars->x - 150, vars->y);
-	vars->img.img_pixels_ptr = mlx_get_data_addr(vars->img.img_ptr, \
-	&vars->img.bits_per_pixel, &vars->img.line_len, &vars->img.endian);
+	my_image_clear(&vars->img, vars);
 	map_generating(vars);
 	return (0);
 }
@@ -60,7 +65,7 @@ int	mouse_close(t_mlx_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 	mlx_clear_window(vars->mlx, vars->win);
 	mlx_destroy_window(vars->mlx, vars->win);
-	free(vars->mlx);
+	//system("leaks fdf");
 	exit(0);
 	return (0);
 }

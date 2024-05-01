@@ -25,7 +25,7 @@ void	do_atoi(t_mlx_vars **vars, t_map *map, int j, int i)
 	else
 	{
 		(*vars)->coordinates[i][j].z = ft_atoi(map->line[j]);
-		(*vars)->coordinates[i][j].color = 85;
+		(*vars)->coordinates[i][j].color = 135;
 	}
 }
 
@@ -91,5 +91,6 @@ t_map	*parser(int fd, t_mlx_vars *vars)
 		add_to_map(&map, buffer);
 		free(buffer);
 	}
+	vars->map_ = map;
 	return (map);
 }

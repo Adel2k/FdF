@@ -48,10 +48,8 @@ int	line_size(t_mlx_vars *vars)
 	else if (vars->height_size <= 50 && vars->width_size <= 50)
 		return (20);
 	else if (vars->height_size <= 100 && vars->width_size <= 100)
-		return (15);
-	else if (vars->height_size <= 200 && vars->width_size <= 200)
 		return (10);
-	else if (vars->height_size <= 150 && vars->width_size <= 150)
+	else if (vars->height_size <= 200 && vars->width_size <= 200)
 		return (5);
 	else
 		return (2);
@@ -65,17 +63,33 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 	* ((*vars)->height_size));
 	malloc_check((*vars)->coordinates);
 	do_matrix(vars, map);
+		system("leaks fdf");
 	(*vars)->mlx = NULL;
 	(*vars)->win = NULL;
 	(*vars)->x = 1500;
 	(*vars)->y = 1000;
-	(*vars)->x_start = (*vars)->x / 2 - 250;
-	(*vars)->y_start = -300;
+	(*vars)->x_start = (*vars)->width_size / 2 + 450;
+	(*vars)->y_start = ((*vars)->height_size / 2) + 250;
 	(*vars)->x_end = (*vars)->x - (*vars)->x_start;
 	(*vars)->y_end = (*vars)->y - (*vars)->y_start;
 	(*vars)->dx = (*vars)->x_end - (*vars)->x_start;
 	(*vars)->dy = (*vars)->y_end - (*vars)->y_start;
 	(*vars)->line = line_size(*vars);
+	(*vars)->zoom = zoom(*vars);
+	(*vars)->view = 0;
+	(*vars)->tetha = 0;
+	(*vars)->gamma = 0;
+	(*vars)->alpha = 0.00;
+	(*vars)->rotate = 45;
+}
+
+void	count_dif(t_coordinates	*xy)
+{
+	if (xy->dy_abs > xy->dx_abs)
+	{
+		xy->max = xy->dy_abs;
+		xy->min = xy->dx_abs;
+	}
 }
 
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2)
@@ -100,11 +114,7 @@ t_coordinates	setting_vars(int x1, int y1, int x2, int y2)
 	xy.y = y1;
 	xy.max = xy.dx_abs;
 	xy.min = xy.dy_abs;
-	if (xy.dy_abs > xy.dx_abs)
-	{
-		xy.max = xy.dy_abs;
-		xy.min = xy.dx_abs;
-	}
+	count_dif(&xy);
 	xy.p = 2 * xy.min - xy.max;
 	return (xy);
 }

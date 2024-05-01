@@ -23,10 +23,8 @@
 // # include <X11/keysym.h>
 # include "get_next_line.h"
 # include "minilibx/mlx.h"
-# define R(a) (a) >> 16
-# define G(a) ((a) >> 8) & 0xFF
-# define B(a) (a) & 0xFF
-# define RGB(a, b, c) ((a) << 16) + ((b) << 8) + (c)
+
+typedef struct s_map t_map;
 
 typedef struct n_img
 {
@@ -52,20 +50,6 @@ typedef struct n_points
 	t_cord	point2;
 }	t_points;
 
-typedef struct s_color
-{
-	int	start_color;
-	int	start_r;
-	int	start_g;
-	int	start_b;
-	int	end_color;
-	int	end_r;
-	int	end_g;
-	int	end_b;
-	int	delta_r;
-	int	delta_g;
-	int	delta_b;
-}	t_color;
 
 typedef struct n_coordinates
 {
@@ -96,6 +80,7 @@ typedef struct s_mlx_vars
 	t_gradient		**coordinates;
 	t_cord			*cord;
 	t_img			img;
+	t_map			*map_;
 	int				y;
 	int				x;
 	int				width_size;
@@ -114,6 +99,12 @@ typedef struct s_mlx_vars
 	int				color;
 	int				line;
 	char			*name;
+	int				zoom;
+	int				view;
+	float			gamma;
+	float			tetha;
+	float			alpha;
+	int				rotate;
 }	t_mlx_vars;
 
 typedef struct s_map
@@ -138,15 +129,18 @@ void			map_generating(t_mlx_vars *vars);
 t_coordinates	setting_vars(int x1, int y1, int x2, int y2);
 void			do_matrix(t_mlx_vars **vars, t_map *map);
 void			first_point(t_points *p, int x, int y, t_mlx_vars *vars);
-void			isometric_projection(t_points *p);
+void			isometric_projection(t_points *p, t_mlx_vars *vars);
 /////////////////////////////ROTATING & 3DPART//////////////////////////////////
-void			isometric(t_points *p);
-void			rotate_x(t_points *p);
-void			rotate_y(t_points *p);
+void			isometric(t_points *p, t_mlx_vars *vars);
+void			rotate_x(t_points *p, t_mlx_vars *vars);
+void			rotate_y(t_points *p, t_mlx_vars *vars);
+void			rotate_z(t_points *p, t_mlx_vars *vars);
 void			bresnham(t_mlx_vars *vars, t_coordinates *xy);
-void			rotate_z(t_points *p);
 int				gradient(int startcolor, int endcolor, \
 				int pix, t_mlx_vars *vars);
+void			view(int keysym, t_mlx_vars *vars);
+void			position(int keysym, t_mlx_vars *vars);
+void			zooming(int keysym, t_mlx_vars *vars);
 ///////////////////////////////UTILS////////////////////////////////////////////
 size_t			ft_strlen(const char *str);
 void			malloc_check(void *str);
@@ -160,8 +154,13 @@ char			*ft_strchr(const char *str, const int c);
 int				convert_to_hex(char *str);
 void			mlx_side(t_mlx_vars *vars);
 t_gradient		*init_row(char **line);
+int				line_size(t_mlx_vars *vars);
 /////////////////////////////KEY_FUNCTIONS//////////////////////////////////
 int				handler(int keysym, t_mlx_vars *vars);
+// int	handler(int keysym, t_mlx_vars *vars,t_map *map);
 int				mouse_close(t_mlx_vars *vars);
+
+
+int	zoom(t_mlx_vars *vars);
 
 #endif

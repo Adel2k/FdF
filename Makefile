@@ -7,7 +7,7 @@ OBJS = $(SRCS:.c=.o)
 INCLUDE = -I ./
 CC = gcc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror  -g3# -fsanitize=address $(INCLUDE)
+CFLAGS = -Wall -Wextra -Werror $(INCLUDE) #-g3 -fsanitize=address 
 #MLXFLAGS = -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit 
 %.o:	%.c $(INCLUDE) 

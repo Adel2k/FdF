@@ -12,18 +12,19 @@
 
 #include "fdf.h"
 
-void	isometric_projection(t_points *p)
+void	isometric_projection(t_points *p, t_mlx_vars *vars)
 {
-	rotate_x(p);
-	rotate_y(p);
-	rotate_z(p);
-	isometric(p);
+	rotate_x(p, vars);
+	rotate_y(p, vars);
+	rotate_z(p, vars);
+	if (vars->view == 0)
+		isometric(p, vars);
 }
 
 void	first_point(t_points *p, int x, int y, t_mlx_vars *vars)
 {
-	p->point1.x = vars->x_start + (x * vars->line);
-	p->point1.y = vars->y_start + (y * vars->line);
+	p->point1.x = (x * vars->line);
+	p->point1.y = (y * vars->line);
 }
 
 void	points(t_cord *x, t_points *p, t_mlx_vars *v)
@@ -43,7 +44,6 @@ void	map_generating(t_mlx_vars *vars)
 	while (xy.y < vars->height_size)
 	{
 		xy.x = 0;
-		mlx_side(vars);
 		while (xy.x + 1 <= vars->width_size)
 		{
 			points(&xy, &p, vars);
@@ -51,4 +51,6 @@ void	map_generating(t_mlx_vars *vars)
 		}
 		xy.y++;
 	}
+	mlx_side(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img_ptr, 350, 0);
 }
