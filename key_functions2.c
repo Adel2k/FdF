@@ -16,12 +16,12 @@ void	zooming(int keysym, t_mlx_vars *vars)
 {
 	if (keysym == 69)
 		vars->line += 1;
-	if (keysym == 78)
+	if (keysym == 78 && vars->line != 0)
 		vars->line -= 1;
 	if (keysym == 24)
-		vars->zoom += 2;
-	if (keysym == 27)
-		vars->zoom -= 2;
+		vars->zoom += 1;
+	if (keysym == 27 && vars->zoom != 0)
+		vars->zoom -= 1;
 }
 
 void	position(int keysym, t_mlx_vars *vars)
@@ -38,7 +38,7 @@ void	position(int keysym, t_mlx_vars *vars)
 
 void	view(int keysym, t_mlx_vars *vars)
 {
-	vars->rotate = 45;
+	vars->rotate = M_PI_4;
 	vars->view = 0;
 	if (keysym == 83)
 	{

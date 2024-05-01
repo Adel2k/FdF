@@ -107,7 +107,7 @@ typedef struct s_mlx_vars
 	float			gamma;
 	float			tetha;
 	float			alpha;
-	int				rotate;
+	double			rotate;
 }	t_mlx_vars;
 ////////////////////////////VALIDATION & PARSING////////////////////////////////
 int				line_count(char **map);

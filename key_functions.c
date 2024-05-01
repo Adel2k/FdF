@@ -26,10 +26,10 @@ void	my_image_clear(t_img *data, t_mlx_vars *vars)
 
 void	first_pos(t_mlx_vars *vars)
 {
-	vars->rotate = 45;
+	vars->rotate = M_PI_4;
 	vars->view = 0;
 	vars->gamma = 0;
-	vars->x_start = vars->width_size / 2 + 350;
+	vars->x_start = vars->width_size / 2 + 450;
 	vars->y_start = (vars->height_size / 2) + 250;
 	vars->zoom = zoom(vars);
 	vars->line = line_size(vars);

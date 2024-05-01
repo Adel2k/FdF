@@ -67,8 +67,8 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 	(*vars)->win = NULL;
 	(*vars)->x = 1500;
 	(*vars)->y = 1000;
-	(*vars)->x_start = (*vars)->width_size / 2 + 450;
-	(*vars)->y_start = ((*vars)->height_size / 2) + 250;
+	(*vars)->x_start = ((*vars)->x / 2) - 250;
+	(*vars)->y_start = ((*vars)->y / 2) - 100;
 	(*vars)->x_end = (*vars)->x - (*vars)->x_start;
 	(*vars)->y_end = (*vars)->y - (*vars)->y_start;
 	(*vars)->dx = (*vars)->x_end - (*vars)->x_start;
@@ -79,7 +79,7 @@ void	init_vars(t_mlx_vars **vars, t_map *map)
 	(*vars)->tetha = 0;
 	(*vars)->gamma = 0;
 	(*vars)->alpha = 0.00;
-	(*vars)->rotate = 45;
+	(*vars)->rotate = M_PI_4;
 }
 
 void	count_dif(t_coordinates	*xy)

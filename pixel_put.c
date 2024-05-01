@@ -56,26 +56,44 @@ void	bresnham(t_mlx_vars *vars, t_coordinates *xy)
 	}
 }
 
+void	mlx_side2(t_mlx_vars *vars)
+{
+	mlx_string_put(vars->mlx, vars->win, 25, 170, 0xb78f3f, \
+	"Change the positions with");
+	mlx_string_put(vars->mlx, vars->win, 25, 195, 0xb78f3f, \
+	"'right', 'left', 'up', 'down'" );
+	mlx_string_put(vars->mlx, vars->win, 25, 220, 0xb78f3f, \
+	"For height press 'ctrl + '='");
+	mlx_string_put(vars->mlx, vars->win, 25, 245, 0xb78f3f, \
+	"Top view = '1'");
+	mlx_string_put(vars->mlx, vars->win, 25, 265, 0xb78f3f, \
+	"Right view = '2'");
+	mlx_string_put(vars->mlx, vars->win, 25, 285, 0xb78f3f, \
+	"First position = 'space'");
+	mlx_string_put(vars->mlx, vars->win, 25, 305, 0xb78f3f, \
+	"For rotate hold the '1' or '2'");
+	mlx_string_put(vars->mlx, vars->win, 25, 365, 0xb78f3f, \
+	"For exit press'ESC.'");
+	mlx_string_put(vars->mlx, vars->win, 25, 900, 0xb78f3f, \
+	"Thank you!!");
+}
+
 void	mlx_side(t_mlx_vars *vars)
 {
 	t_coordinates	side;
 
 	side = setting_vars(2, 0, 2, 1000);
-	vars->color = 0xffffff;
+	vars->color = 0xececdd;
 	bresnham(vars, &side);
-	mlx_string_put(vars->mlx, vars->win, 60, 50, 150, \
+	mlx_string_put(vars->mlx, vars->win, 60, 50, 0x4f7ebb, \
 	"Welcome to Penguin's FdF<3");
-	mlx_string_put(vars->mlx, vars->win, 60, 70, 150, \
+	mlx_string_put(vars->mlx, vars->win, 60, 70, 0x4f7ebb, \
 	"Isometric projection 3D");
-	mlx_string_put(vars->mlx, vars->win, 60, 90, 150, "Map Name: ");
-	mlx_string_put(vars->mlx, vars->win, 150, 90, 150, vars->name);
-	mlx_string_put(vars->mlx, vars->win, 25, 130, 150, \
+	mlx_string_put(vars->mlx, vars->win, 60, 90, 0x4f7ebb, "Map Name: ");
+	mlx_string_put(vars->mlx, vars->win, 160, 90, 0xececdd, vars->name);
+	mlx_string_put(vars->mlx, vars->win, 25, 130, 0xb78f3f, \
 	"For zoom out press '+'");
-	mlx_string_put(vars->mlx, vars->win, 25, 150, 150, "For zoom in press '-'");
-	mlx_string_put(vars->mlx, vars->win, 25, 170, 150, \
-	"Use '>', '<', up and down buttons");
-	mlx_string_put(vars->mlx, vars->win, 25, 190, 150, \
-	"For height press 't' or 'space'");
-	mlx_string_put(vars->mlx, vars->win, 25, 220, 150, \
-	"For closing press 'ESC'");
+	mlx_string_put(vars->mlx, vars->win, 25, 150, 0xb78f3f, \
+	"For zoom in press '-'");
+	mlx_side2(vars);
 }
