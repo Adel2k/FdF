@@ -37,7 +37,7 @@ void	first_pos(t_mlx_vars *vars)
 
 int	handler(int keysym, t_mlx_vars *vars)
 {
-	if (keysym == 53)
+	if (keysym == XK_Escape)
 	{
 		mlx_destroy_image(vars->mlx, vars->img.img_ptr);
 		mlx_clear_window(vars->mlx, vars->win);
@@ -45,13 +45,13 @@ int	handler(int keysym, t_mlx_vars *vars)
 		free_vars(vars);
 		exit(0);
 	}
-	if (keysym == 49)
+	if (keysym == XK_space)
 		first_pos(vars);
-	if (keysym == 69 || keysym == 78 || keysym == 24 || keysym == 27)
+	if (keysym == XK_s || keysym == XK_w || keysym == 61 || keysym == 45)
 		zooming(keysym, vars);
-	if (keysym == 126 || keysym == 125 || keysym == 124 || keysym == 123)
+	if (keysym == XK_Right || keysym == XK_Left || keysym == XK_Up || keysym == XK_Down)
 		position(keysym, vars);
-	if (keysym == 82 || keysym == 83 || keysym == 84 || keysym == 85)
+	if (keysym == XK_1 || keysym == XK_2 || keysym == XK_3 || keysym == XK_0)
 		view(keysym, vars);
 	mlx_clear_window(vars->mlx, vars->win);
 	my_image_clear(&vars->img, vars);

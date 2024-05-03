@@ -57,7 +57,7 @@ void	starting(int fd, char *name)
 	vars->img.img_ptr = mlx_new_image(vars->mlx, vars->x - 150, vars->y);
 	vars->img.img_pixels_ptr = mlx_get_data_addr(vars->img.img_ptr, \
 	&vars->img.bits_per_pixel, &vars->img.line_len, &vars->img.endian);
-	mlx_hook(vars->win, 2, 0, handler, vars);
+	mlx_key_hook(vars->win,&handler,vars);
 	mlx_hook(vars->win, 17, 0, mouse_close, vars);
 	map_generating(vars);
 	mlx_loop(vars->mlx);

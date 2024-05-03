@@ -20,9 +20,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
-// # include <X11/keysym.h>
+# include <X11/keysym.h>
 # include "get_next_line.h"
-# include "minilibx/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 typedef struct s_map
 {
