@@ -39,10 +39,10 @@ To install and run the project, follow these steps:
 
 ## Usage
 
-- **For zoom in and zoom out use plus/minus keys in keypad.
-- **For increase or decrease the depth use 'w' ans 's'.
-- **For translate use right\left\up and down keys.
-- **For rotation press and hold '2' and '3' keys.
-- **For top view use '1'.
-- **For exit use 'ESC'.
-- **For first view use 'space'.
+- For zoom in and zoom out use plus/minus keys in keypad.
+- For increase or decrease the depth use 'w' ans 's'.
+- For translate use right\left\up and down keys.
+- For rotation press and hold '2' and '3' keys.
+- For top view use '1'.
+- For exit use 'ESC'.
+- For first view use 'space'.
