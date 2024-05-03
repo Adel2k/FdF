@@ -9,12 +9,7 @@ Welcome to the FdF project! This is a wireframe representation program that is p
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Configuration](#configuration)
-- [Challenges and Tips](#challenges-and-tips)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
+  
 ## Overview
 
 The FdF project aims to create a wireframe representation of a 3D map provided in a file. The program reads the file, parses the data to create a 3D map, and then projects it onto a 2D plane for visualization. The project tests your understanding of C programming, data structures, algorithms, and basic graphical programming.
@@ -41,3 +36,13 @@ To install and run the project, follow these steps:
    ```bash
    git clone https://github.com/Adel2k/FdF.git
    cd fdf
+
+## Usage
+
+- **For zoom in and zoom out use plus/minus keys in keypad.
+- **For increase or decrease the depth use 'w' ans 's'.
+- **For translate use right\left\up and down keys.
+- **For rotation press and hold '2' and '3' keys.
+- **For top view use '1'.
+- **For exit use 'ESC'.
+- **For first view use 'space'.
