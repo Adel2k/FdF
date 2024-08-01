@@ -1,4 +1,5 @@
 # FdF Project - 42 École
+(https://miro.medium.com/v2/resize:fit:1400/1*QTNUzUBzWEK3sSd3HTsEdg.png)
 
 Welcome to the FdF project! This is a wireframe representation program that is part of the curriculum at 42 École. The project involves reading a 3D map from a file and displaying it using a 2D wireframe representation.
 
